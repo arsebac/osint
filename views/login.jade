@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .container
+    .row
+      .col-md-4.offset-md-4
+        h1 Connexion
+        if messages && messages.error
+          .alert.alert-danger= messages.error
+        form(method='post' action='/login')
+          .form-group
+            label(for='email') Email :
+            input#email.form-control(type='email' name='email' required)
+          .form-group
+            label(for='password') Mot de passe :
+            input#password.form-control(type='password' name='password' required)
+          input.btn.btn-primary(type='submit' value='Se connecter')

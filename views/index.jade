@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  .container
+    .row
+      .col-md-12
+        form(method='get' action='/search' id='search-form')
+          .form-group
+            label(for='keywords') Rechercher par email, téléphone ou utilisateur :
+            input#keywords.form-control(type='text', placeholder="Rechercher sur les leaks privés", name='keywords' required)
+            button.btn.btn-lg.btn-success(type='submit') Go
+    .row
+      .col-md-12
+        table.table
+          thead
+            tr
+              th ID
+              th Phone
+              th Email
+              th Username
+          tbody#results
+            tr(style='display: none;')
+              td
+              td
+              td
+              td
+    .row
+      .col-md-12
+        br
+    .row
+      .col-md-12
+        form
+          .form-group
+            label(for='searchField') Rechercher dans les bases publiques : 
+            input#searchField.form-control(type='search', name='searchField', placeholder="Rechercher sur IntelX", size="50")
+            button.btn.btn-lg.btn-success(type='submit' id='btnSearch') Search
+      div#searchResults
+
+  script !{'window.key = "' + key + '";'}
+  script(src='/javascripts/search.js')
