@@ -11,7 +11,7 @@ block content
             button.btn.btn-lg.btn-success(type='submit') Go
     .row
       .col-md-12
-        table.table
+        table.table#table-search(style='display:none')
           thead
             tr
               th ID
@@ -35,6 +35,30 @@ block content
             input#searchField.form-control(type='search', name='searchField', placeholder="Rechercher sur IntelX", size="50")
             button.btn.btn-lg.btn-success(type='submit' id='btnSearch') Search
       div#searchResults
+    .row
+      .col-md-12
+        br
+    .row
+      .col-md-12
+        form(method='get' action='/database' id='database-search-form')
+          .form-group
+            label(for='searchDatabase') Rechercher un leak rendu publique : 
+            input#searchDatabase.form-control(type='search', name='searchDatabase', placeholder="Rechercher un leak", size="50")
+            button.btn.btn-lg.btn-success(type='submit' id='btndatabase') Search
+      div
+       table.table#searchDatabaseTable(style='display:none')
+          thead
+            tr
+              th Name
+              th Users impacted
+              th Leak year
+              th Find data
+          tbody#searchDatabaseResults
+            tr(style='display: none;')
+              td
+              td
+              td
+              td
 
   script !{'window.key = "' + key + '";'}
   script(src='/javascripts/search.js')

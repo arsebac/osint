@@ -20,18 +20,58 @@ document.addEventListener('DOMContentLoaded', () => {
             table.removeChild(table.firstChild);
           }
   
+          document.getElementById("table-search").style.display="block"
+
           // Ajout des nouveaux résultats
           data.forEach((item) => {
             const row = document.createElement('tr');
             row.innerHTML = `
               <td>${item.id}</td>
-              <td>${item.nom}</td>
-              <td>${item.prenom}</td>
+              <td>${item.phone}</td>
+              <td>${item.email}</td>
+              <td>${item.username}</td>
             `;
             table.appendChild(row);
           });
         })
     });
+
+    const dbForm = document.getElementById('database-search-form');
+    const tableForm = document.getElementById('searchDatabaseResults');
+
+    // Gestionnaire d'événement de soumission du formulaire
+    dbForm.addEventListener('submit', (event) => {
+        // Empêche la soumission du formulaire
+        event.preventDefault();
+    
+        // Récupération des mots-clés de recherche
+        const keywords = dbForm.elements.searchDatabase.value;
+    
+        console.log("keywords", keywords)
+        // Envoi de la requête en arrière-plan
+        fetch(`/database?searchDatabase=${keywords}`)
+          .then((response) => response.json())
+          .then((data) => {
+            // Effacement des résultats précédents
+            while (tableForm.firstChild) {
+                tableForm.removeChild(tableForm.firstChild);
+            }
+            document.getElementById("searchDatabaseTable").style.display="block"
+            // Ajout des nouveaux résultats
+            data.forEach((item) => {
+              const row = document.createElement('tr');
+              row.innerHTML = `
+                <td>${item.web_name}</td>
+                <td>${item.number_of_users}</td>
+                <td>${item.leak_date}</td>
+                <td><a href='${item.url}'>Find data</a></td>
+              `;
+              tableForm.appendChild(row);
+            });
+          })
+      });
+  
+    
 })
 
 var API_KEY = window.key;
@@ -88,4 +128,8 @@ $(document).on('click', '#btnSearch', function (event) {
             });
         }
     });
+});
+
+$(document).on('click', '#btnDatabase', function (event) {
+
 });
